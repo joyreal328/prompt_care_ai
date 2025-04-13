@@ -7,6 +7,11 @@
     let micIcon = "🎤"; // Using an emoji for the microphone icon
     let recognition;
     let speechSupported = false;
+
+
+    let showMicWrapper = false;
+
+    let showHeader = true;
     
   
     // Use onMount to ensure client-side execution (SSR protection)
@@ -36,6 +41,7 @@
   
     function openChat() {
       showModal = true;
+      showHeader = false;
     }
   
     function closeChat() {
@@ -52,40 +58,23 @@
   
  
   
+  {#if showHeader}
   <div class="container">
     <h1>AI-Powered ER Triage</h1>
     <p>Cutting Wait Times, Saving Lives</p>
     <button class="chat-btn" on:click={openChat}>Talk to our Chatbot</button>
   </div>
-  
+  {/if}
   {#if showModal}
 
     <div class="chat-modal">
    
-      <div class="chat-container">
-        <div class="chat-header">
-          <h2>Chatbot</h2>
-          <button class="close-btn" on:click={closeChat} aria-label="Close Chat">&times;</button>
-
-
-          <Microphone/>
-      
-   
-        </div>
-        <!-- <div class="chat-body">
-    
-        </div>
-        <div class="chat-input">
-          <input type="text" bind:value={chatInput} placeholder="Type your message..." />
-          {#if speechSupported}
-            <button class="mic-btn" on:click={startSpeech} aria-label="Activate Microphone">
-              {@html micIcon}
-            </button>
-          {/if}
-        </div> -->
-      </div>
+        <Microphone/>
     </div>
   {/if}
+
+
+
   
 
   <style>
@@ -102,6 +91,7 @@
       align-items: center;
       height: 100vh;
       text-align: center;
+    
     }
     h1 {
       font-size: 2.5rem;
@@ -126,7 +116,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, .3);
       display: flex;
       justify-content: center;
       align-items: center;
